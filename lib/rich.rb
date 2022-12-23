@@ -192,6 +192,7 @@ module Rich
       end
     end
 
+    byebug
     if self.backend == :paperclip
       require 'rich/backends/paperclip'
     elsif self.backend == :carrierwave

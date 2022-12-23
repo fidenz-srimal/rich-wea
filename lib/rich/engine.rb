@@ -3,8 +3,9 @@ require "rich/authorize"
 
 module Rich
   class Engine < Rails::Engine
+    
     isolate_namespace Rich
-
+    self.config.autoload_once_paths << "#{root}/app/models/rich/**"
     initializer "rich.add_middleware" do |app|
       app.config.assets.precompile += %W(
               ckeditor/*.js
@@ -14,7 +15,8 @@ module Rich
               ckeditor/*.html
               ckeditor/*.md
       )
-      app.middleware.use 'Rack::RawUpload', :paths => ['/rich/files']
+      
+      app.middleware.use Rack::RawUpload, :paths => ['/rich/files']
     end
 
     initializer 'rich.include_authorization' do |app|
